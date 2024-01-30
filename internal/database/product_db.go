@@ -10,7 +10,7 @@ type ProductDB struct {
 	db *sql.DB
 }
 
-func newProduct(db *sql.DB) *ProductDB {
+func NewProductDB(db *sql.DB) *ProductDB {
 	return &ProductDB{db: db}
 }
 
@@ -59,11 +59,11 @@ func (pd *ProductDB) GetProductsByCategoryId(categoryID string) ([]*entity.Produ
 	return products, nil
 }
 
-func (pd *ProductDB) CreateProduct(product *entity.Product) (string, error) {
+func (pd *ProductDB) CreateProduct(product *entity.Product) (*entity.Product, error) {
 	_, err := pd.db.Exec("INSERT INTO products (id, name, description, price, category_id, image_url) VALUES (?, ?, ?, ?, ?, ?)",
 		product.ID, product.Name, product.Description, product.Price, product.CategoryID, product.ImageURL)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return product.ID, nil
+	return product, nil
 }

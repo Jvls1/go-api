@@ -10,7 +10,7 @@ type CategoryDB struct {
 	db *sql.DB
 }
 
-func NewCategory(db *sql.DB) *CategoryDB {
+func NewCategoryDB(db *sql.DB) *CategoryDB {
 	return &CategoryDB{db: db}
 }
 
